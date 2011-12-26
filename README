@@ -1,0 +1,21 @@
+SE Project 
+=============================
+
+Book Exchanging.
+二手书交换市场 测试中文支持
+
+=============================
+
+Rules:
+
+1. We organize the repo as directorys
+  |
+  |----- define/   Feasibility, Reqirements
+  |----- analysis/ Analysis and Design
+  |----- test/     Test Plan
+2. Use utf-8 text file
+=============================
+
+
+
+

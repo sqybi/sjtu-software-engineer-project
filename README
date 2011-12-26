@@ -12,7 +12,7 @@ Rules:
 1. We organize the repo as directorys
   |
   |----- define/   Feasibility, Reqirements
-  |----- analysis/ Analysis
+  |----- analysis/ RAD
   |----- design/   Design
   |----- test/     Test Plan
 2. Use utf-8 text file

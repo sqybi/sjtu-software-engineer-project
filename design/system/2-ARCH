@@ -14,21 +14,57 @@
     持久化数据由MySQL关系数据库存储，Hibernate进行数据映射。
 2.4 持久性数据管理
     2.4.1 标示持久化存储对象
-    针对功能性需求，系统有四类数据要进行存储。第一类是用户的信息，由AuthSubsystem使用，第二类是书籍和课程的信息，由QuerySubsystem使用,第三类是交易和请求信息，由ExchangeSubsystem使用，最后一类是浏览信息，由RecommendationSubsystem使用。
+    针对功能性需求，系统有五类数据要进行存储。第一类是用户的信息，由AuthSubsystem使用，第二类是书籍和课程的信息，由QuerySubsystem使用,第三类是交易和请求信息，由ExchangeSubsystem使用，第四类是消息传递信息，由Message子系统使用。最后一类是浏览信息，由RecommendationSubsystem使用。
     用户信息包括:
     1) UserStorage对象 包括用户的认证信息，第三方认证信息，权限信息
+    消息信息包括:
+    1) MessagedStorage对象，包括消息的生成信息与消息内容，消息的发送状态
+    2) MessageMethodStorage对象，包括消息的发送方法
+    以上对象均与UserStorage对象存在多对一关系
     书籍和课程信息包括:
     2) BookKindStorage对象，保存某一种类的书籍信息
     3) CourseStorage对象，保存某一课程的对应信息
     CourseStorage对象和BookStorage对象存在多对多关系
     交易和请求信息包括:
-    1) BookSharedStorage对象，保存交易的书籍信息，与BookKindStorage存在多对一关系
-    2) BookRequestStorage对象，保存请求的书籍信息，与BookKindStorage存在多对一关系
-    3) OrderStorage对象，用于存放成功的交易信息
+    1) BookSharedStorage对象，保存交易的书籍信息，与BookKindStorage存在多对一关系。与UserStorage存在多对一关系。
+    2) BookRequestStorage对象，保存请求的书籍信息，与BookKindStorage存在多对一关系。与UserStorage存在多对一关系。
+    3) OrderStorage对象，用于存放成功的交易信息以及评价信息，与UserStorage存在多对一关系
     浏览信息包括
     1) ViewHistory对象，用于保存用户浏览的对象，和BookStorage存在多对一关系
     2.4.2 存储策略
-    
+    系统使用关系数据库来存储持久化对象，但由于关系数据库不适应存储持久化对象的需要，所以使用Hibernate进行映射，为满足这一目的，所有Storage对象都是JavaBean类型，对应属性应使用set/get方法访问。
+    Hibernate也提供了系统相对于底层数据库平台的独立性。
 2.5 访问控制与保密性
-2.6 全局软件控制
+    为了权限控制的方便，我们使用权限字符串来管理访问控制。任何一个角色将由SystemAdministrator赋予一定的权限字符串，任何一个对象也将由一定的权限字符串进行表示，当两者匹配时，控制器将放行请求。
+    2.5.1 权限字符串
+    对应每一个子系统，有如下权限字符串:
+    User子系统:
+      USER_REGISTER:注册新用户
+      USER_MODIFY_ALL:更改自己的注册信息
+      USER_MODIFY_NOT_PROTECTED:更改自己未被保护的注册信息
+      USER_DELETE:删除用户
+      USER_CANCEL:注销用户
+      USER_MODIFY_END_USER:操作其他终端用户的账户
+      USER_MODIFY_ALL_USERS:操作所有用户的账户
+    MESSAGE子系统:
+      MESSAGE_SEND:发送通知
+      MESSAGE_RECEIVE:接受通知
+      MESSAGE_SEND_PROTECTED:使用被保护的方式发送通知
+    ORDER子系统:
+      ORDER_SHARE:卖家权限
+      ORDER_REQUEST:买家权限
+      ORDER_MODIFY_ALL:更改其他用户的订单
+    Query子系统:
+      QUERY_VIEW: 查看课程和书本权限
+      QUERY_ADD_INFO:添加信息，需进行审核
+      QUERY_PUBLISH:发布课程和书本信息
+      QUERY_ACQUIRE:确认课程和书本信息的有效性
+    RECOMMANDATION子系统:
+      HISTORY_VIEW:查看历史浏览信息
+      GET_RECOMMANDATION:得到推荐信息
+    针对各个角色的访问矩阵如下:(略，切到Windows再搞)
+2.6 全局软件控制流
+2.7 标识服务
+    
 2.7 边界条件
+    

@@ -63,8 +63,38 @@
       HISTORY_VIEW:查看历史浏览信息
       GET_RECOMMANDATION:得到推荐信息
     针对各个角色的访问矩阵如下:(略，切到Windows再搞)
+    SPECTOR/END_USER/ADMINISTOR
 2.6 全局软件控制流
 2.7 标识服务
-    
+    下文将简述每一子系统所需提供的服务:
+        CONTROLLER子系统:
+           接受所有服务，调用Auth子系统进行权限检查，然后进行消息转发
+        AUTH子系统:
+           Authentication:认证用户的身份
+           Authorization:授权服务，验证对应用户的权限
+           RateUser:评价用户
+           ViewUser:查看用户信息
+        QUERY子系统:
+           FindCourse:查询课程信息
+           FindCourseRelatedBookKind:查询课程对应的书籍资料信息
+           FindBook:查找某一特定的书籍信息
+        Exchange子系统:
+           FindSharedBook:查找对应课程的书籍信息
+           FindRequest:查找对应书籍的请求信息
+           ShareBook:分享书籍
+           RequireBook:请求书籍
+           TryPrice:竞价
+           ViewBook:查看书籍
+           ViewBookThroughCategory:根据分类查看书籍
+           ViewBookThroughRating:根据评价查看书籍
+           ViewHistory:查看历史订单
+        RECOMMENDATION子系统:
+           ViwRecommendBook:推荐书籍
 2.7 边界条件
-    
+   系统包含以下边界用例:
+      配置用例:
+         RegisterUser
+      启动/关闭用例
+         UserLogIn
+         UserLogOut
+      

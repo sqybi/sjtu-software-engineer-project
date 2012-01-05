@@ -1,8 +1,22 @@
 2 建议软件体系结构
 2.1 概述
+    下文将概述各个子系统的相关设计。
 2.2 子系统分解
+    我们使用三层结构对系统进行拆分。
+    在前端，终端用户界面子系统(EndUserInterface)与管理系统界面子系统(AdminInterface)为用户和管理员提供对应的访问界面，在服务器端，请求分配系统(RequestController)提供对客户端的服务界口，验证系统(AuthSystem)负责处理用户请求,交易系统(ExchangeSystem)负责进行竞价和交易,查询系统(QuerySystem)负责查找对应的书籍,消息系统(MessageSystem)负责以Email和短信形式进行交易、推荐系统(RecommendationSystem)负责向用户推荐合适的书籍。
 2.3 硬件/软件映射
+    SHBES是一个分布式系统，我们标示三类节点，根据情况，第二类和第三类节点可以在同一台物理机器上进行运行。
+    我们选择最普遍的开源解决方案，使用Java EE作为语言平台，Apache作为Web服务器，Tomcat作为轻量级Java EE容器，Struts作为MVC平台，Spring进行依赖注入，Hibernate作为持久化映射方案,MySQL作为数据库服务器。
+    该系统具有以下优势:1 成本低廉，全部为开源软件，容易获得。2 成熟完善 拥有庞大的社群支持，软件复用和疑难问题容易解决。3 技术先进 较易实现面向方面编程与依赖注入，使得系统模块化较佳。
+    两个客户端的Interface系统被置于客户机节点上，运行于浏览器之中。
+    逻辑层运行于Java EE应用服务器上，Tomcat作为容器。
+    RequestController是建构在Struts基础上的控制器子系统，接收到用户请求后，由Struts框架实现的Action调用对应子系统的相应方法，处理后以HTTP形式返回给客户端，Struts不负责创建对象，Spring IoC框架负责处理依赖。同时，控制器拦截所有请求，进行权限检查，如果不满足要求则返回登录页面。
+    持久化数据由MySQL关系数据库存储，Hibernate进行数据映射。
 2.4 持久性数据管理
+    2.4.1 标示持久化存储对象
+    针对功能性需求，系统有四类数据要进行存储。第一类是用户的信息，由AuthSubsystem使用，第二类是书籍和课程的信息，由QuerySubsystem使用,第三类是交易和请求信息，由ExchangeSubsystem使用，最后一类是浏览信息，由RecommendationSubsystem使用。
+    用户信息包括:
+    2.4.2 存储策略
 2.5 访问控制与保密性
 2.6 全局软件控制
 2.7 边界条件

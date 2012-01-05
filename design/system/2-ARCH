@@ -16,7 +16,19 @@
     2.4.1 标示持久化存储对象
     针对功能性需求，系统有四类数据要进行存储。第一类是用户的信息，由AuthSubsystem使用，第二类是书籍和课程的信息，由QuerySubsystem使用,第三类是交易和请求信息，由ExchangeSubsystem使用，最后一类是浏览信息，由RecommendationSubsystem使用。
     用户信息包括:
+    1) UserStorage对象 包括用户的认证信息，第三方认证信息，权限信息
+    书籍和课程信息包括:
+    2) BookKindStorage对象，保存某一种类的书籍信息
+    3) CourseStorage对象，保存某一课程的对应信息
+    CourseStorage对象和BookStorage对象存在多对多关系
+    交易和请求信息包括:
+    1) BookSharedStorage对象，保存交易的书籍信息，与BookKindStorage存在多对一关系
+    2) BookRequestStorage对象，保存请求的书籍信息，与BookKindStorage存在多对一关系
+    3) OrderStorage对象，用于存放成功的交易信息
+    浏览信息包括
+    1) ViewHistory对象，用于保存用户浏览的对象，和BookStorage存在多对一关系
     2.4.2 存储策略
+    
 2.5 访问控制与保密性
 2.6 全局软件控制
 2.7 边界条件

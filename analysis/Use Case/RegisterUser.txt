@@ -2,7 +2,7 @@
 
 卡片
 名称：注册账号
-代码：Register
+代码：RegisterUser
 
 说明
 用户注册一个新的账号

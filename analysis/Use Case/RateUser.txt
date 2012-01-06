@@ -1,0 +1,16 @@
+用例
+用户评分 RateUser
+
+参与者的参与
+由买家Buyer或卖家Seller启动
+由卖家Buyer和卖家Seller进行沟通
+
+动作阶段
+买家Buyer或卖家Seller对卖家Seller或买家Buyer进行评分并提交
+
+入口条件
+买家Buyer或卖家Seller已经登录
+卖家Buyer和卖家Seller之间有未评分订单
+
+出口条件
+无

@@ -1,0 +1,16 @@
+用例
+注册用户 RegisterUser
+
+参与者的参与
+由匿名用户Anonymous启动
+
+动作阶段
+匿名用户Anonymous填写注册表单
+匿名用户Anonymous提交注册表单
+匿名用户Anonymous等待服务器返回信息
+
+入口条件
+匿名用户Anonymous尚未登录
+
+出口条件
+匿名用户Anonymous收到服务器返回的信息

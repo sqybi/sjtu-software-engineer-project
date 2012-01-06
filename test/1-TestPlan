@@ -1,0 +1,72 @@
+测试计划
+1 介绍
+
+
+本文是二手书交易平台（SHBES）的测试计划，目的是为测试阶段各个不同的阶段提供整体的指引和规划。下文包含，系统概述，测试的特征，测试覆盖准则，测试方法，测试用例等内容。
+
+2 系统概述与需要测试的特征
+
+二手书交易平台(SHBES)是一个高校学生之间交换书籍，查阅相关信息，并进行相关交流的网站，旨在提高书籍的利用率，为高校学生提供更多更好的书籍。
+
+2.1 需要进行系统测试的功能性需求
+Actor | UseCase | Memo
+Spector | ViewBook | 用户可以浏览书籍
+Spector | ViewBookByCategory | 用户可以按分类浏览书籍
+Spector | ViewBookByRating   | 用户可以按评价浏览书籍
+Spector | ViewBookBYCourse   | 用户可以按课程浏览书籍
+Spector | UserLogIn          | 用户可以登录
+Spector | FindBook           | 用户可以查找书籍
+Spector | FindCourse         | 用户可以查找课程
+EndUser | ViewUser           | 登录用户可以查看其它用户的信息
+EndUser | UserModifyInfo     | 登录用户可以更改自己的注册信息
+EndUser | UserLogOut         | 登录用户可以注销
+EndUser | PublishBook        | 登录用户可以出售书籍
+EndUser | TryPrice           | 登录用户可以进行竞价
+EndUser | FinishOrder        | 登录用户可以完成订单
+EndUser | CancelOrder        | 登录用户可以取消订单
+EndUser | RequestBook        | 登录用户可以请求书籍
+EndUser | RateUser           | 登录用户可以评价订单
+EndUser,Admin | AddBookKindInfo  | 添加书籍品种信息
+EndUser,Admin | AddCourseInfo    | 添加课程信息
+Admin   | ManageUser         | 管理员可以进行用户管理
+
+2.2 需要进行系统测试的非功能性需求
+
+ReliabilityTest | 系统应能承受1000左右并发
+ResponseTest    | 系统响应时间应在可接受范围内
+
+3 测试覆盖准则与测试策略
+
+3.0 可用性测试
+    可用性测试以场景测试形式进行。
+
+3.1 单元测试
+    所有构件都必须进行单元测试。
+    所有构件的单元测试代码覆盖率、分支覆盖率应达到50%以上。
+    单元测试完成是启动其他测试的必要条件
+   
+3.2 集成测试
+    集成测试测试系统各个不同子系统的交互性。
+    所有子系统都必须通过严格的带有边界条件的集成测试。
+    系统采用自底向上测试策略。
+    集成测试完成是系统测试开始的必要条件。
+    
+3.3 系统测试
+    系统测试进行功能性测试与性能测试。
+		所有需求都必须通过功能性/性能测试。
+		
+4 测试用例
+本节列出系统测试阶段所用的测试用例，由于单元测试与集成测试所需的用例可以从约束模型直接导出，本文忽略。
+
+由于UseCase粒度较小，这里的测试用例粒度稍大一些。
+
+4.1 功能性测试用例
+TestCase | Memo
+ViewBookTest       | 用户以各种不同方式浏览书籍
+FindCourseTest     | 用户可以查找课程与与之对应的书籍与课程信息
+SellBookTest       | 卖家可以卖出书籍
+RequestBookTest    | 买家可以请求书籍
+BookAndCourseInfoTest       | 书籍信息可以被更新
+UserManagementTest          | 用户可以被管理
+
+4.2 性能测试用例(略)

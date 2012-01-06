@@ -8,7 +8,7 @@
 
 用户User
   说明
-    用户User表示了一个已经注册的用户。
+    用户User表示了一个已经注册的用户。分为卖家Seller和买家Buyer。
   属性
     用户名
     密码
@@ -48,7 +48,7 @@
 
 分类Category
   说明
-    课程Course用来标识书籍的分类。
+    分类Category用来标识书籍的分类。
   属性
     名称
 
@@ -67,5 +67,24 @@
     内容
     发送时间
 
+
+
 边界对象
 
+UserLoginForm
+  匿名用户Anonymous登录时使用的表格，可以输入用户名与密码
+
+UserRegisterForm
+  匿名用户Anonymous注册的时候使用的表格，可以输入用户名、密码、姓名、电话和地址
+
+ModifyUserInfoForm
+  用户User修改信息时使用的表格，可以修改密码、姓名、电话和地址，需输入当前密码
+
+PublishBookForm
+  卖家Seller发布书籍信息时使用的表格，可以填写书籍名称、所属课程、所属分类、起拍价和底价。
+
+ModifyBookInfoForm
+  卖家Seller修改书籍信息时使用的表格，可以更改所属课程和所属分类。
+
+SendMessageForm
+  用户User之间发送短消息时使用的表格，可以填写收件人和短消息内容。

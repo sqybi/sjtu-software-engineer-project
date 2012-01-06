@@ -62,8 +62,22 @@
     RECOMMANDATION子系统:
       HISTORY_VIEW:查看历史浏览信息
       GET_RECOMMANDATION:得到推荐信息
-    针对各个角色的访问矩阵如下:(略，切到Windows再搞)
+    针对各个角色的访问矩阵如下:
     SPECTOR/END_USER/ADMINISTOR
+|    Role     |        USER	             |       MESSAGE        |      	QUERY        |	RECOMMANDATION	| EXCHANGE
+=======================================================================================================================
+|  SPECTATOR  |	USER_REGISTER            |	NULL	            |    QUERY_VIEW	     |        NULL        |	NULL
+-----------------------------------------------------------------------------------------------------------------------
+|   USER 	  | USER_MODIFY_NOT_PROTECTD |  MESSAGE_SEND        |    QUERY_VIEW      |  HISTORY_VIEW      |  ORDER_SHARE
+|             | USER_CANCEL              |  MESSAGE_RECEIVE     |    QUERY_ADD_INFO  |  GET_RECOMMANDATION|  ORDER_REQUEST
+-----------------------------------------------------------------------------------------------------------------------
+|ADMINISTRATOR| USER_CANCEL              |  MESSAGE_RECEIVE     |    QUERY_VIEW      |                    |  ORDER_MODIFY_ALL
+|             | USER_MODIFY_ALL          |MESSAGE_SEND_PROTECTED|    QUERY_PUBLISH   |                    |  
+|             | USER_DELETE              |                      |    QUERY_ACQUIRE   |                    |  	
+|             | USER_MODIFY_END_USER     |                      |                    |                    |      	
+-----------------------------------------------------------------------------------------------------------------------
+|SUPERUSER    | USER_MODIFY_ALL_USERS    |                      |                    |                    |          
+-----------------------------------------------------------------------------------------------------------------------
 2.6 全局软件控制流
 2.7 标识服务
     下文将简述每一子系统所需提供的服务:

@@ -1,0 +1,16 @@
+用例
+取消订单 CancelOrder
+
+参与者的参与
+由买家Buyer或卖家Seller启动
+由买家Buyer和卖家Seller进行沟通
+
+动作阶段
+买家Buyer或卖家Seller选择取消订单
+卖家Seller或买家Buyer确认此操作
+
+入口条件
+买家Buyer和卖家Seller已经登录
+
+出口条件
+双方确认取消订单操作

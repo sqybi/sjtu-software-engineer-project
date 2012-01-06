@@ -16,15 +16,13 @@
     姓名
     电话
     地址
-
+    
 书籍Book
   说明
     被卖家Seller标识出售的书目。
   属性
     名称
     编号
-    所属课程
-    所属分类
     起拍价
     底价
     当前价格
@@ -40,11 +38,28 @@
     买家
     卖家
 
+请求Request
+   说明
+     请求Request是购买者对没有人分享的书所提出的索取要求。与用户存在多对一关系。与Kind存在多对一关系。
+	 属性
+	   Kind
+	   
+评价Rating
+   说明
+     评价Rating是在订单完成后双方对对方的评价，与(订单,用户)对具有一对一关系。
+   属性
+     物品评价
+     服务评价
+          
 课程Course
   说明
     课程Course用来标识书籍的课程分类。
   属性
     名称
+    专业
+    教材
+    参考书
+    其他资料
 
 分类Category
   说明
@@ -52,12 +67,17 @@
   属性
     名称
 
+
 类别Kind
   说明
-    类别Kind用来给同一本书籍的不同实体归类。
-  属性
+    类别Kind用来给同一本书籍的不同实体归类。Kind和Book具有一对多关系。Kind和Course具有多对多关系。
+属性
     名称
-
+    书号
+    类别
+    关联课程
+    所属分类
+    
 消息Message
   说明
     消息Message是用户之间发送的短信息。
@@ -68,8 +88,7 @@
     发送时间
 
 
-
-边界对象
+边界类
 
 UserLoginForm
   匿名用户Anonymous登录时使用的表格，可以输入用户名与密码
@@ -88,3 +107,33 @@ ModifyBookInfoForm
 
 SendMessageForm
   用户User之间发送短消息时使用的表格，可以填写收件人和短消息内容。
+
+AdminModifyUserForm
+   管理员管理用户资料时所使用的表格。
+   
+AdminBookInfoModifyForm
+   管理员确认修改书籍信息使用的表单。
+   
+AdminCourseInfoModifyForm
+   管理员确认修改课程信息使用的表单。
+   
+   
+控制类
+
+RequestForwardController
+用以将请求转发的控制器
+
+UserController
+用以完成用户相关功能的控制器
+
+QueryController
+用以完成查询相关内容的控制器
+
+ExchangeController
+用以完成交易相关功能的控制器
+
+MessageController
+用以完成消息相关功能的控制器
+
+RecommandationController
+用以完成推荐相关功能的控制器

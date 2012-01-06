@@ -3,7 +3,7 @@
     下文将概述各个子系统的相关设计。
 2.2 子系统分解
     我们使用三层结构对系统进行拆分。
-    在前端，终端用户界面子系统(EndUserInterface)与管理系统界面子系统(AdminInterface)为用户和管理员提供对应的访问界面，在服务器端，请求分配系统(RequestController)提供对客户端的服务界口，验证系统(AuthSystem)负责处理用户请求,交易系统(ExchangeSystem)负责进行竞价和交易,查询系统(QuerySystem)负责查找对应的书籍,消息系统(MessageSystem)负责以Email和短信形式进行交易、推荐系统(RecommendationSystem)负责向用户推荐合适的书籍。
+    在前端，终端用户界面子系统(EndUserInterface)与管理系统界面子系统(AdminInterface)为用户和管理员提供对应的访问界面，在服务器端，请求分配系统(RequestForwardController)提供对客户端的服务界口，验证系统(AuthSystem)负责处理用户请求,交易系统(ExchangeSystem)负责进行竞价和交易,查询系统(QuerySystem)负责查找对应的书籍,消息系统(MessageSystem)负责以Email和短信形式进行交易、推荐系统(RecommendationSystem)负责向用户推荐合适的书籍。
 2.3 硬件/软件映射
     SHBES是一个分布式系统，我们标示三类节点，根据情况，第二类和第三类节点可以在同一台物理机器上进行运行。
     我们选择最普遍的开源解决方案，使用Java EE作为语言平台，Apache作为Web服务器，Tomcat作为轻量级Java EE容器，Struts作为MVC平台，Spring进行依赖注入，Hibernate作为持久化映射方案,MySQL作为数据库服务器。
@@ -18,7 +18,7 @@
     用户信息包括:
     1) UserStorage对象 包括用户的认证信息，第三方认证信息，权限信息
     消息信息包括:
-    1) MessagedStorage对象，包括消息的生成信息与消息内容，消息的发送状态
+    1) MessagedStorage对象，包括消息的生成信息与消息内容，消息的发送状态与时间
     2) MessageMethodStorage对象，包括消息的发送方法
     以上对象均与UserStorage对象存在多对一关系
     书籍和课程信息包括:
@@ -28,12 +28,14 @@
     交易和请求信息包括:
     1) BookSharedStorage对象，保存交易的书籍信息，与BookKindStorage存在多对一关系。与UserStorage存在多对一关系。
     2) BookRequestStorage对象，保存请求的书籍信息，与BookKindStorage存在多对一关系。与UserStorage存在多对一关系。
+    以上两个对象均继承自抽象类OfferStorage
     3) OrderStorage对象，用于存放成功的交易信息以及评价信息，与UserStorage存在多对一关系
     浏览信息包括
-    1) ViewHistory对象，用于保存用户浏览的对象，和BookStorage存在多对一关系
+    1) ViewHistoryStorage对象，用于保存用户浏览的对象，和BookStorage存在多对一关系
     2.4.2 存储策略
     系统使用关系数据库来存储持久化对象，但由于关系数据库不适应存储持久化对象的需要，所以使用Hibernate进行映射，为满足这一目的，所有Storage对象都是JavaBean类型，对应属性应使用set/get方法访问。
     Hibernate也提供了系统相对于底层数据库平台的独立性。
+
 2.5 访问控制与保密性
     为了权限控制的方便，我们使用权限字符串来管理访问控制。任何一个角色将由SystemAdministrator赋予一定的权限字符串，任何一个对象也将由一定的权限字符串进行表示，当两者匹配时，控制器将放行请求。
     2.5.1 权限字符串
@@ -62,13 +64,14 @@
     RECOMMANDATION子系统:
       HISTORY_VIEW:查看历史浏览信息
       GET_RECOMMANDATION:得到推荐信息
+   2.5.2 访问矩阵
     针对各个角色的访问矩阵如下:
     SPECTOR/END_USER/ADMINISTOR
 |    Role     |        USER	             |       MESSAGE        |      	QUERY        |	RECOMMANDATION	| EXCHANGE
 =======================================================================================================================
 |  SPECTATOR  |	USER_REGISTER            |	NULL	            |    QUERY_VIEW	     |        NULL        |	NULL
 -----------------------------------------------------------------------------------------------------------------------
-|   USER 	  | USER_MODIFY_NOT_PROTECTD |  MESSAGE_SEND        |    QUERY_VIEW      |  HISTORY_VIEW      |  ORDER_SHARE
+|   USER 	    | USER_MODIFY_NOT_PROTECTD |  MESSAGE_SEND        |    QUERY_VIEW      |  HISTORY_VIEW      |  ORDER_SHARE
 |             | USER_CANCEL              |  MESSAGE_RECEIVE     |    QUERY_ADD_INFO  |  GET_RECOMMANDATION|  ORDER_REQUEST
 -----------------------------------------------------------------------------------------------------------------------
 |ADMINISTRATOR| USER_CANCEL              |  MESSAGE_RECEIVE     |    QUERY_VIEW      |                    |  ORDER_MODIFY_ALL
@@ -78,8 +81,9 @@
 -----------------------------------------------------------------------------------------------------------------------
 |SUPERUSER    | USER_MODIFY_ALL_USERS    |                      |                    |                    |          
 -----------------------------------------------------------------------------------------------------------------------
-2.6 全局软件控制流
-2.7 标识服务
+   2.5.3 访问控制方法
+   访问控制使用proxy模式进行，所有请求发送给RequestForwardController，RequestForwardController的请求被拦截器所拦截，如果请求允许则放行，否则则直接返回登录界面。所有Controller拥有共同的调用接口，这使得RequestForwardController的存在对接口层透明。
+2.6 标识服务
     下文将简述每一子系统所需提供的服务:
         CONTROLLER子系统:
            接受所有服务，调用Auth子系统进行权限检查，然后进行消息转发
@@ -92,12 +96,13 @@
            FindCourse:查询课程信息
            FindCourseRelatedBookKind:查询课程对应的书籍资料信息
            FindBook:查找某一特定的书籍信息
-        Exchange子系统:
            FindSharedBook:查找对应课程的书籍信息
            FindRequest:查找对应书籍的请求信息
+        Exchange子系统:
            ShareBook:分享书籍
            RequireBook:请求书籍
            TryPrice:竞价
+           MakeOffer:确认订单
            ViewBook:查看书籍
            ViewBookThroughCategory:根据分类查看书籍
            ViewBookThroughRating:根据评价查看书籍

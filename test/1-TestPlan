@@ -1,0 +1,33 @@
+测试计划
+1 介绍
+
+
+本文是二手书交易平台（SHBES）的测试计划，目的是为测试阶段各个不同的阶段提供整体的指引和规划。下文包含，系统概述，测试的特征，测试覆盖准则，测试方法，测试用例等内容。
+
+2 系统概述与需要测试的特征
+
+二手书交易平台(SHBES)是一个高校学生之间交换书籍，查阅相关信息，并进行相关交流的网站，旨在提高书籍的利用率，为高校学生提供更多更好的书籍。
+
+2.1 需要进行系统测试的功能性需求
+Actor | UseCase | Memo
+Spector | ViewBook | 用户可以浏览书籍
+Spector | ViewBookByCategory | 用户可以按分类浏览书籍
+Spector | ViewBookByRating   | 用户可以按评价浏览书籍
+Spector | ViewBookBYCourse   | 用户可以按课程浏览书籍
+Spector | UserLogIn          | 用户可以登录
+Spector | FindBook           | 用户可以查找书籍
+Spector | FindCourse         | 用户可以查找课程
+EndUser | ViewUser           | 登录用户可以查看其它用户的信息
+EndUser | UserModifyInfo     | 登录用户可以更改自己的注册信息
+EndUser | UserLogOut         | 登录用户可以注销
+EndUser | PublishBook        | 登录用户可以出售书籍
+EndUser | TryPrice           | 登录用户可以进行竞价
+EndUser | FinishOrder        | 登录用户可以完成订单
+EndUser | CancelOrder        | 登录用户可以取消订单
+EndUser | RequestBook        | 登录用户可以请求书籍
+EndUser | RateUser           | 登录用户可以评价订单
+EndUser,Admin | AddBookKindInfo  | 添加书籍品种信息
+EndUser,Admin | AddCourseInfo    | 添加课程信息
+Admin   | ManageUser         | 管理员可以进行用户管理
+
+2.2 需要进行系统测试的非功能性需求

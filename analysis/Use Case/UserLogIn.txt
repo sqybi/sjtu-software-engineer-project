@@ -5,7 +5,7 @@
 由匿名用户Anonymous启动
 
 动作阶段
-匿名用户Anonymous填写登录表单并提交给服务器
+匿名用户Anonymous填写登录表单并提交给服务器，包括用户名和密码
 匿名用户Anonymous确认登录
 
 入口条件

@@ -1,0 +1,17 @@
+用例
+竞价 TryPrice
+
+参与者的参与
+由买家Buyer启动
+由买家Buyer和卖家Seller进行沟通
+
+动作阶段
+买家Buyer填写自己期望的价格参与竞价
+买家Buyer等待竞价结束或有人提出新的竞价
+竞价结束，如果最终竞价高于卖家Seller的底价则订单生成，买家Buyer根据联系方式与卖家Seller联系
+
+入口条件
+买家Buyer已经登录
+
+出口条件
+买家Buyer和卖家Seller进行交易

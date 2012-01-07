@@ -2,11 +2,52 @@
 ==========
 1 导言
 1.1 对象设计习俗
+	在对象设计阶段，将把用例部分的实体对象加以细化，并划分到系统设计阶段生成的子系统当中去。
+	在对象设计的过程中，应遵守以下原则：
+	一 类的设计原则
+		1.依赖倒置原则－Dependency Inversion Principle (DIP)
+		2.里氏替换原则－Liskov Substitution Principle (LSP)
+		3.接口分隔原则－Interface Segregation Principle (ISP)
+		4.单一职责原则－Single Responsibility Principle (SRP)
+		5.开闭原则－The Open-Closed Principle (OCP)
+	二 包的设计原则
+		6.重用发布等价原则－Release ReuseEquivalency Principle (REP)
+		7.无环依赖原则－The AcyclicDependencies Principle (ADP)
+		8.稳定依赖原则－The StableDependencies Principle (SDP)
+		9.稳定抽象等价原则－The StableAbstractions Principle (SAP)
+		10.共同封闭原则－The CommonClosure Principle (CCP)
+		11.全部重用原则－The Common Reuse Principle (CRP)
+	三 扩展原则
+		12.迪米特法则 －Least Knowledge Principle (LKP)
+		13.黑盒原则－ BBP(Black Box Principle)
+		14.缺省抽象原则 －DAP(Default Abstraction Principle)
+		15.接口设计原则 －IDP(Interface Design Principle)
+		16.不要构造具体的超类原则 －DCSP(Don't Concrete SupperclassPrinciple)
 1.2 编辑接口文档的规则
+	接口的设计应遵守以下原则：
+	一 简单原则。
+		所谓简单，主要体现在模块接口的使用方法 上，模块的使用者在不借助或借助很少的文档的情况下，就可以轻松使用模块所提供的功能。这首先要求接口方法的命名要规范，每个对外提供的方法名都应该有意 义，让使用者可以通过名称猜测到方法的主要用途；其次要求接口中的相关参数的数据类型要尽可能的简单，尽量少使用嵌套层次多的数据结构，必要时可以构建全局应用的内存环境来保存模块间共同使用的数据，同时在这个内存环境之上提供不同数据的操作方法，从而减少模块间直接性的复杂数据的传递；其三，模块接口的方法尽可能单一，设计模式中的工厂模式是一种不错的选择。
+	二 封闭原则。
+		封闭原则要求的的是，模块功能的实现细节要完全对外封闭，而且在对模块内部的处理逻辑进行修改时，不会影响模块使用者的调用逻辑。
+	三 完整性原则。
+		做为功能模块，它所提供的功能应该是一个全面的整体，一些具有细微差别的功能应该被集中到一个模块中，这样我们可以方便利用继承、重载、覆写等技术手段来提高代码复用率，同时也可以提升模块使用的灵活度。
+	四 可置换原则。
+		我们很难保证一个功能模块所提供的功能会永不过时，因此在接口设计时应该尽可能的应用接口编程思想，为接口提供标准的接口规范，这样将来可以轻松的用遵循接口规范的新的模块置换原有的模块，而不会影响其到他相关模块的调用方式。
 1.3 定义
+	无
 1.4 参考
+	Object Oriented Design Standards
 2 包
 	包的划分由子系统确定，按层次分为如下包：
+	Interface包
+	-----------------
+	Auth包
+	Query包
+	Exchange包
+	Message包
+	Recommendation包
+	-----------------
+	Storage包
 	
 3 类的接口
-
+	在Class Diagram中给出定义
